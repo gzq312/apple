@@ -1,0 +1,94 @@
+//@import "var";
+@lg:1200px;
+@md:1000px;
+@sm:768px;
+@pd:15px;
+@clos:12;
+.pad(){
+  padding-right:@pd;
+  padding-left: @pd;
+}
+.mad(){
+  margin-right:-@pd;
+  margin-left: -@pd;
+}
+.container{
+  &{
+    height: auto;
+    display: block;
+    margin-right: auto!important;
+    margin-left: auto!important;
+    .pad;
+  }
+  &-fluid{
+    height: auto;
+    display: block;
+    .pad
+  }
+  & .row,&-fluid .row{
+    margin-left: -@pd;
+    margin-right: -@pd;
+    display: block;
+  };
+  & .row .after,&-fluid .row after{
+    content: "";
+    display: block;
+    line-height: 0;
+    height: 0;
+    clear: both;
+    font-size: 0;
+  }
+};
+.image-response{
+  max-width: 100%;
+  height: auto;
+  display: block;
+};
+[center-block]{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+};
+[center-text]{
+  text-align: center;
+  display: block;
+};
+
+.grid(@type,@i:1)when(@i<=@clos){
+  .col-@{type}-@{i}{
+    width: 100%/@clos*@i;
+    display: block;
+    float: left;
+    .pad();
+  }
+  .grid(@type,@i+1);
+}
+.grid(xs);
+.g(@width,@name){
+  @media screen and (min-width: @width){
+  .container{
+    width: @width - @pd*2;
+  }
+  .grid(@name)
+  }
+
+}
+.g(@sm,sm);
+.g(@md,md);
+.g(@lg,lg);
+
+@media screen and (min-width: @sm) and (max-width: @md){
+  .hidden-sm{
+    display: none;
+  }
+}
+@media screen and (min-width: @md) and (max-width: @lg){
+  .hidden-md{
+    display: none;
+  }
+}
+@media screen and (min-width: @lg){
+  .hidden-lg{
+    display: none;
+  }
+}
